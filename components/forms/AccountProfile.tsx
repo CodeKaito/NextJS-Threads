@@ -17,6 +17,7 @@ import { userValidation } from "@/lib/validations/user";
 import * as z from "zod";
 import Image from "next/image";
 import { ChangeEvent } from "react";
+import { Textarea } from "../ui/textarea";
 
 interface Props {
     user: {
@@ -54,6 +55,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
             <form 
             onSubmit={form.handleSubmit(onSubmit)} 
             className="flex flex-col justify-start gap-10">
+            
             <FormField
                 control={form.control}
                 name="profile_photo"
@@ -93,6 +95,73 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
                 </FormItem>
                 )}
             />
+
+            <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                <FormItem className="flex items-center gap-3 w-full">
+                    <FormLabel className="text-base-semibold text-light-2">
+                        Name
+                    </FormLabel>
+                    <FormControl className="flex-1 text-base-semibold text-gray-200">
+                        <Input
+                        type="text"
+                        className="account-form-input no-focus"
+                        {...field}
+                        placeholder="Insert your name"
+                        />
+                    </FormControl>
+
+                    <FormMessage />
+                </FormItem>
+                )}
+            />
+
+            <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                <FormItem className="flex items-center gap-3 w-full">
+                    <FormLabel className="text-base-semibold text-light-2">
+                        Username
+                    </FormLabel>
+                    <FormControl className="flex-1 text-base-semibold text-gray-200">
+                        <Input
+                        type="text"
+                        className="account-form-input no-focus"
+                        {...field}
+                        placeholder="Insert your username"
+                        />
+                    </FormControl>
+
+                    <FormMessage />
+                </FormItem>
+                )}
+            />
+
+            <FormField
+                control={form.control}
+                name="bio"
+                render={({ field }) => (
+                <FormItem className="flex items-center gap-3 w-full">
+                    <FormLabel className="text-base-semibold text-light-2">
+                        Bio
+                    </FormLabel>
+                    <FormControl className="flex-1 text-base-semibold text-gray-200">
+                        <Textarea
+                        rows={10}
+                        className="account-form-input no-focus"
+                        {...field}
+                        placeholder="Write something about yourself"
+                        />
+                    </FormControl>
+
+                    <FormMessage />
+                </FormItem>
+                )}
+            />
+
             <Button type="submit">Submit</Button>
             </form>
         </Form>

@@ -1,5 +1,13 @@
 function Bottombar() {
-    return <h1>Bottombar</h1>
+    return (
+        <section className="bottombar">
+            <div className="bottombar_container">
+                {
+                    
+                }
+            </div>
+        </section>
+    )
 }
 
 export default Bottombar;

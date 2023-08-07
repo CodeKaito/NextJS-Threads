@@ -71,6 +71,6 @@ var AccountProfile = function (_a) {
                             React.createElement(textarea_1.Textarea, __assign({ rows: 10, className: "account-form-input no-focus" }, field, { placeholder: "Write something about yourself" }))),
                         React.createElement(form_1.FormMessage, null)));
                 } }),
-            React.createElement(button_1.Button, { type: "submit" }, "Submit"))));
+            React.createElement(button_1.Button, { className: "bg-primary-500", type: "submit" }, "Submit"))));
 };
 exports["default"] = AccountProfile;

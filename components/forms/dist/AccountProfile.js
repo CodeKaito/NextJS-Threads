@@ -48,27 +48,69 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
+var image_1 = require("next/image");
 var react_hook_form_1 = require("react-hook-form");
-var button_1 = require("@/components/ui/button");
+var navigation_1 = require("next/navigation");
+var react_1 = require("react");
+var zod_1 = require("@hookform/resolvers/zod");
 var form_1 = require("@/components/ui/form");
 var input_1 = require("@/components/ui/input");
-var zod_1 = require("@hookform/resolvers/zod");
+var button_1 = require("@/components/ui/button");
+var textarea_1 = require("@/components/ui/textarea");
+var uploadthing_1 = require("@/lib/uploadthing");
+var utils_1 = require("@/lib/utils");
 var user_1 = require("@/lib/validations/user");
-var image_1 = require("next/image");
-var react_1 = require("react");
-var textarea_1 = require("../ui/textarea");
+var user_actions_1 = require("@/lib/actions/user.actions");
 var AccountProfile = function (_a) {
     var user = _a.user, btnTitle = _a.btnTitle;
+    var router = navigation_1.useRouter();
+    var pathname = navigation_1.usePathname();
+    var startUpload = uploadthing_1.useUploadThing("media").startUpload;
     var _b = react_1.useState([]), files = _b[0], setFiles = _b[1];
     var form = react_hook_form_1.useForm({
-        resolver: zod_1.zodResolver(user_1.userValidation),
+        resolver: zod_1.zodResolver(user_1.UserValidation),
         defaultValues: {
-            profile_photo: (user === null || user === void 0 ? void 0 : user.image) || "",
-            name: (user === null || user === void 0 ? void 0 : user.name) || "",
-            username: (user === null || user === void 0 ? void 0 : user.username) || "",
-            bio: (user === null || user === void 0 ? void 0 : user.bio) || ""
+            profile_photo: (user === null || user === void 0 ? void 0 : user.image) ? user.image : "",
+            name: (user === null || user === void 0 ? void 0 : user.name) ? user.name : "",
+            username: (user === null || user === void 0 ? void 0 : user.username) ? user.username : "",
+            bio: (user === null || user === void 0 ? void 0 : user.bio) ? user.bio : ""
         }
     });
+    var onSubmit = function (values) { return __awaiter(void 0, void 0, void 0, function () {
+        var blob, hasImageChanged, imgRes;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    blob = values.profile_photo;
+                    hasImageChanged = utils_1.isBase64Image(blob);
+                    if (!hasImageChanged) return [3 /*break*/, 2];
+                    return [4 /*yield*/, startUpload(files)];
+                case 1:
+                    imgRes = _a.sent();
+                    if (imgRes && imgRes[0].fileUrl) {
+                        values.profile_photo = imgRes[0].fileUrl;
+                    }
+                    _a.label = 2;
+                case 2: return [4 /*yield*/, user_actions_1.updateUser({
+                        name: values.name,
+                        path: pathname,
+                        username: values.username,
+                        userId: user.id,
+                        bio: values.bio,
+                        image: values.profile_photo
+                    })];
+                case 3:
+                    _a.sent();
+                    if (pathname === "/profile/edit") {
+                        router.back();
+                    }
+                    else {
+                        router.push("/");
+                    }
+                    return [2 /*return*/];
+            }
+        });
+    }); };
     var handleImage = function (e, fieldChange) {
         e.preventDefault();
         var fileReader = new FileReader();
@@ -89,9 +131,6 @@ var AccountProfile = function (_a) {
             fileReader.readAsDataURL(file);
         }
     };
-    function onSubmit(values) {
-        var blob = values.profile_photo;
-    }
     return (React.createElement(form_1.Form, __assign({}, form),
         React.createElement("form", { onSubmit: form.handleSubmit(onSubmit), className: "flex flex-col justify-start gap-10" },
             React.createElement(form_1.FormField, { control: form.control, name: "profile_photo", render: function (_a) {

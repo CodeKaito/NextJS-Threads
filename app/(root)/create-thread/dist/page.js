@@ -54,7 +54,7 @@ function Page() {
                 case 2:
                     userInfo = _a.sent();
                     if (!(userInfo === null || userInfo === void 0 ? void 0 : userInfo.onboarded))
-                        navigation_1.redirect("/onboarding");
+                        navigation_1.redirect('/onboarding');
                     return [2 /*return*/, (React.createElement(React.Fragment, null,
                             React.createElement("h1", { className: 'head-text' }, "Create Thread"),
                             React.createElement(PostThread_1["default"], { userId: userInfo._id })))];

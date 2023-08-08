@@ -1,4 +1,3 @@
-"use server";
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -37,61 +36,28 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.updateUser = exports.fetchUser = void 0;
-var cache_1 = require("next/cache");
-var user_model_1 = require("../models/user.model");
-var mongoose_1 = require("../mongoose");
-function fetchUser(userId) {
+var ThreadCard_1 = require("@/components/cards/ThreadCard");
+var thread_actions_1 = require("@/lib/actions/thread.actions");
+var nextjs_1 = require("@clerk/nextjs");
+function Home() {
     return __awaiter(this, void 0, void 0, function () {
-        var error_1;
+        var result, user;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    mongoose_1.connectToDB();
-                    return [4 /*yield*/, user_model_1["default"].findOne({ id: userId }).populate({})];
+                case 0: return [4 /*yield*/, thread_actions_1.fetchPosts(1, 30)];
                 case 1:
-                    _a.sent();
-                    return [3 /*break*/, 3];
+                    result = _a.sent();
+                    return [4 /*yield*/, nextjs_1.currentUser()];
                 case 2:
-                    error_1 = _a.sent();
-                    throw new Error("Failed to fetch user: " + error_1.message);
-                case 3: return [2 /*return*/];
+                    user = _a.sent();
+                    console.log(result);
+                    return [2 /*return*/, (React.createElement(React.Fragment, null,
+                            React.createElement("h1", { className: "head-text text-left" }, "Home"),
+                            React.createElement("section", { className: "mt-0 flex flex-col gap-10" }, result.posts.length === 0 ? (React.createElement("p", { className: "no-result" }, "No threads found")) : (React.createElement(React.Fragment, null, result.posts.map(function (post) {
+                                return React.createElement(ThreadCard_1["default"], { key: post._id, id: post._id, currentUserId: user === null || user === void 0 ? void 0 : user.id, parentId: post.parentId, content: post.author, communityId: post.community, createdAt: post.createdAt, comments: post.children });
+                            }))))))];
             }
         });
     });
 }
-exports.fetchUser = fetchUser;
-function updateUser(_a) {
-    var userId = _a.userId, bio = _a.bio, name = _a.name, path = _a.path, username = _a.username, image = _a.image;
-    return __awaiter(this, void 0, Promise, function () {
-        var error_2;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0:
-                    _b.trys.push([0, 2, , 3]);
-                    mongoose_1.connectToDB();
-                    return [4 /*yield*/, user_model_1["default"].findOneAndUpdate({ id: userId }, {
-                            username: username.toLowerCase(),
-                            name: name,
-                            bio: bio,
-                            image: image,
-                            onboarded: true
-                        }, {
-                            upsert: true
-                        })];
-                case 1:
-                    _b.sent();
-                    if (path === '/profile/edit') {
-                        cache_1.revalidatePath(path);
-                    }
-                    return [3 /*break*/, 3];
-                case 2:
-                    error_2 = _b.sent();
-                    throw new Error("Failed to create/update user: " + error_2.message);
-                case 3: return [2 /*return*/];
-            }
-        });
-    });
-}
-exports.updateUser = updateUser;
+exports["default"] = Home;

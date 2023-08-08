@@ -1,4 +1,3 @@
-"use server";
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -37,71 +36,30 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.fetchUser = exports.updateUser = void 0;
-var cache_1 = require("next/cache");
-var user_model_1 = require("../models/user.model");
-var mongoose_1 = require("../mongoose");
-function updateUser(_a) {
-    var userId = _a.userId, username = _a.username, name = _a.name, bio = _a.bio, image = _a.image, path = _a.path;
-    return __awaiter(this, void 0, Promise, function () {
-        var error_1;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0:
-                    mongoose_1.connectToDB();
-                    _b.label = 1;
-                case 1:
-                    _b.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, user_model_1["default"].findOneAndUpdate({ id: userId }, {
-                            username: username.toLowerCase(),
-                            name: name,
-                            bio: bio,
-                            image: image,
-                            onboarded: true
-                        }, {
-                            upsert: true
-                        })];
-                case 2:
-                    _b.sent();
-                    if (path === '/profile/edit') {
-                        cache_1.revalidatePath(path);
-                    }
-                    return [3 /*break*/, 4];
-                case 3:
-                    error_1 = _b.sent();
-                    throw new Error("Failed to create/update user: " + error_1.message);
-                case 4: return [2 /*return*/];
-            }
-        });
-    });
-}
-exports.updateUser = updateUser;
-function fetchUser(userId) {
+var PostThread_1 = require("@/components/forms/PostThread");
+var user_actions_1 = require("@/lib/actions/user.actions");
+var nextjs_1 = require("@clerk/nextjs");
+var navigation_1 = require("next/navigation");
+function Page() {
     return __awaiter(this, void 0, void 0, function () {
-        var error_2;
+        var user, userInfo;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    mongoose_1.connectToDB();
-                    return [4 /*yield*/, user_model_1["default"].findOne({ id: userId })
-                        //.populate({
-                        //    path: 'communities',
-                        //    model: Community
-                        //})
-                    ];
-                case 1: return [2 /*return*/, _a.sent()
-                    //.populate({
-                    //    path: 'communities',
-                    //    model: Community
-                    //})
-                ];
+                case 0: return [4 /*yield*/, nextjs_1.currentUser()];
+                case 1:
+                    user = _a.sent();
+                    if (!user)
+                        return [2 /*return*/, null];
+                    return [4 /*yield*/, user_actions_1.fetchUser(user.id)];
                 case 2:
-                    error_2 = _a.sent();
-                    throw new Error("Failed to fetch user: " + error_2.message);
-                case 3: return [2 /*return*/];
+                    userInfo = _a.sent();
+                    if (!(userInfo === null || userInfo === void 0 ? void 0 : userInfo.onboarded))
+                        navigation_1.redirect('/onboarding');
+                    return [2 /*return*/, (React.createElement(React.Fragment, null,
+                            React.createElement("h1", { className: "head-text" }, "Create Thread"),
+                            React.createElement(PostThread_1["default"], { userId: userInfo._id })))];
             }
         });
     });
 }
-exports.fetchUser = fetchUser;
+exports["default"] = Page;

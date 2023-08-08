@@ -92,10 +92,10 @@ var AccountProfile = function (_a) {
                     }
                     _a.label = 2;
                 case 2: return [4 /*yield*/, user_actions_1.updateUser({
+                        userId: user.id,
                         name: values.name,
                         path: pathname,
                         username: values.username,
-                        userId: user.id,
                         bio: values.bio,
                         image: values.profile_photo
                     })];

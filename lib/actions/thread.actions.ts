@@ -25,7 +25,7 @@ export async function createThread({ text, author, communityId, path }: Params) 
         });
 
         // update user model
-        await User.findByIdAndUpdate(author, {
+            await User.findByIdAndUpdate(author, {
             $push: { threads: createThread._id }
         })
 

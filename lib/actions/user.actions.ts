@@ -8,9 +8,8 @@ export async function fetchUser(userId: string) {
     try {
         connectToDB();
 
-        await User.findOne({ id: userId }).populate({
-
-        });
+        return await User.findOne({ id: userId })
+        //.populate({});
     } catch (error: any) {
         throw new Error(`Failed to fetch user: ${error.message}`);
     }
@@ -33,10 +32,9 @@ export async function updateUser({
     username,
     image,
     }: Params): Promise<void> {
+        connectToDB();
 
     try {
-        connectToDB();
-        
         await User.findOneAndUpdate(
             { id: userId },
             { 

@@ -25,7 +25,6 @@ var ThreadCard = function (_a) {
                         isComment && comments.length > 0 && (React.createElement(link_1["default"], { href: "/thread/" + id },
                             React.createElement("p", { className: "mt-1 text-subtle-medium text-gray-1" },
                                 comments.length,
-                                " replies"))))))),
-        React.createElement("h2", { className: "text-small-regular text-light-2" }, content)));
+                                " replies")))))))));
 };
 exports["default"] = ThreadCard;

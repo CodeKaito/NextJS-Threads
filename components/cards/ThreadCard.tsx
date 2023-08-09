@@ -36,7 +36,7 @@ const ThreadCard = ({
     comments,
     isComment,
 }: Props) => {
-    return
+    return (
         <article className="flex w-full flex-col rounded-xl bg-dark-2 p-7">
             <div className="flex items-start justify-between">
                 <div className="flex w-full flex-1 flex-row gap-4">
@@ -76,8 +76,8 @@ const ThreadCard = ({
                                 </Link>
                                 
                                 <Image
-                                    src="/assets/post.svg"
-                                    alt="post" width={24} height={24}
+                                    src="/assets/repost.svg"
+                                    alt="repost" width={24} height={24}
                                     className="cursor-pointer object-contain"
                                 />
                                 <Image
@@ -102,6 +102,7 @@ const ThreadCard = ({
                 {content}
             </h2>
         </article>
+    )
 }
 
 export default ThreadCard;

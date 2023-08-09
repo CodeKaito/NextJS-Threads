@@ -53,9 +53,7 @@ function Home() {
                     console.log(result);
                     return [2 /*return*/, (React.createElement(React.Fragment, null,
                             React.createElement("h1", { className: "head-text text-left" }, "Home"),
-                            React.createElement("section", { className: "mt-0 flex flex-col gap-10" }, result.posts.length === 0 ? (React.createElement("p", { className: "no-result" }, "No threads found")) : (React.createElement(React.Fragment, null, result.posts.map(function (post) {
-                                return React.createElement(ThreadCard_1["default"], { key: post._id, id: post._id, currentUserId: (user === null || user === void 0 ? void 0 : user.id) || "", parentId: post.parentId, content: post.author, communityId: post.community, createdAt: post.createdAt, comments: post.children });
-                            }))))))];
+                            React.createElement("section", { className: "mt-9 flex flex-col gap-10" }, result.posts.length === 0 ? (React.createElement("p", { className: "no-result" }, "No threads found")) : (React.createElement(React.Fragment, null, result.posts.map(function (post) { return (React.createElement(ThreadCard_1["default"], { key: post._id, id: post._id, currentUserId: (user === null || user === void 0 ? void 0 : user.id) || "", parentId: post.parentId, content: post.text, author: post.author, community: post.community, createdAt: post.createdAt, comments: post.children })); }))))))];
             }
         });
     });

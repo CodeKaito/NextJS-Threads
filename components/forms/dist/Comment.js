@@ -56,6 +56,7 @@ var button_1 = require("@/components/ui/button");
 var input_1 = require("@/components/ui/input");
 var thread_1 = require("@/lib/validations/thread");
 var image_1 = require("next/image");
+var thread_actions_1 = require("@/lib/actions/thread.actions");
 var Comment = function (_a) {
     var threadId = _a.threadId, currentUserImg = _a.currentUserImg, currentUserId = _a.currentUserId;
     var router = navigation_1.useRouter();
@@ -68,14 +69,13 @@ var Comment = function (_a) {
     });
     var onSubmit = function (values) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            //await createThread({
-            //    text: values.thread,
-            //    author: userId,
-            //    communityId: null,
-            //    path: pathname,
-            //});
-            router.push("/");
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, thread_actions_1.addCommentToThread(threadId, values.thread, JSON.parse(currentUserId), pathname)];
+                case 1:
+                    _a.sent();
+                    form.reset();
+                    return [2 /*return*/];
+            }
         });
     }); };
     return (React.createElement(form_1.Form, __assign({}, form),

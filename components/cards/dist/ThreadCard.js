@@ -4,7 +4,7 @@ var image_1 = require("next/image");
 var link_1 = require("next/link");
 var ThreadCard = function (_a) {
     var id = _a.id, currentUserId = _a.currentUserId, parentId = _a.parentId, content = _a.content, author = _a.author, community = _a.community, createdAt = _a.createdAt, comments = _a.comments, isComment = _a.isComment;
-    return (React.createElement("article", { className: "flex w-full flex-col rounded-xl bg-dark-2 p-7" },
+    return (React.createElement("article", { className: "flex w-full flex-col rounded- " + (isComment ? 'px-0 xs:px-7' : 'bg-dark-2 p-7') + " " },
         React.createElement("div", { className: "flex items-start justify-between" },
             React.createElement("div", { className: "flex w-full flex-1 flex-row gap-4" },
                 React.createElement("div", { className: "flex flex-col items-center" },

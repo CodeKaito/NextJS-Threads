@@ -2,7 +2,7 @@ import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { fetchUser } from "@/lib/actions/user.actions";
 
-async function Page() {
+async function Page({ params }: { params: { id: string } }) {
     const user = await currentUser();
     if (!user) return null;
 
@@ -12,7 +12,9 @@ async function Page() {
 
     return (
         <section>
-            <h2>Hello</h2>
+            <ProfileHeader
+
+            />
         </section>
     )
 }

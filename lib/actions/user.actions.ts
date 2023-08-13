@@ -64,7 +64,7 @@ export async function fetchUserPosts(userId: string) {
         const threads = await User.findOne ({ id: userId})
             .populate({
                 path: 'threads',
-                model: Thread,
+                model: Thread, 
                 populate: {
                     path: 'children',
                     model: Thread,

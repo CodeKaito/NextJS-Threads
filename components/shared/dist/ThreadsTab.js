@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,12 +35,32 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
+exports.__esModule = true;
+var user_actions_1 = require("@/lib/actions/user.actions");
+var navigation_1 = require("next/navigation");
+var ThreadCard_1 = require("../cards/ThreadCard");
 var ThreadsTab = function (_a) {
     var currentUserId = _a.currentUserId, accountId = _a.accountId, accountType = _a.accountType;
-    return __awaiter(_this, void 0, void 0, function () {
+    return __awaiter(void 0, void 0, void 0, function () {
+        var result;
         return __generator(this, function (_b) {
-            return [2 /*return*/, (React.createElement("section", null, "ThreadsTab"))];
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, user_actions_1.fetchUserPosts(accountId)];
+                case 1:
+                    result = _b.sent();
+                    if (!result)
+                        navigation_1.redirect('/');
+                    return [2 /*return*/, (React.createElement("section", { className: "mt-9 flex flex-col gap-10" }, result.threads.map(function (thread) { return (React.createElement(ThreadCard_1["default"], { key: thread._id, id: thread._id, currentUserId: currentUserId, parentId: thread.parentId, content: thread.text, author: accountType === 'User'
+                                ? { name: result.name,
+                                    image: result.image,
+                                    id: result.id
+                                } :
+                                { name: thread.author.name,
+                                    image: thread.author.image,
+                                    id: thread.author.id
+                                }, community: thread.community, createdAt: thread.createdAt, comments: thread.children })); })))];
+            }
         });
     });
 };
+exports["default"] = ThreadsTab;

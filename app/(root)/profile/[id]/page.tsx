@@ -6,6 +6,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from "next/image";
 import { profileTabs } from "@/constants";
 import { TabsContent } from "@radix-ui/react-tabs";
+import ThreadsTab from "@/components/shared/ThreadsTab";
 
 async function Page({ params }: { params: { id: string } }) {
   const user = await currentUser();

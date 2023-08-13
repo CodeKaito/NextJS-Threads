@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import User from "../models/user.model";
+import Thread from "../models/thread.model";
 import { connectToDB } from "../mongoose";
 
 export async function fetchUser(userId: string) {

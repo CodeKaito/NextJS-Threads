@@ -15,7 +15,7 @@ var ThreadCard = function (_a) {
                     React.createElement(link_1["default"], { href: "/profile/" + author.id, className: "w-fit" },
                         React.createElement("h4", { className: "cursor-pointer text-base-semibold text-light-1" }, author.name)),
                     React.createElement("p", { className: "mt-2 text-small-regular text-light-2" }, content),
-                    React.createElement("div", { className: "mt-5 flex flex-col gap-3" },
+                    React.createElement("div", { className: (isComment && 'mb-10') + " mt-5 flex flex-col gap-3" },
                         React.createElement("div", { className: "flex gap-3.5" },
                             React.createElement(image_1["default"], { src: "/assets/heart-gray.svg", alt: "heart", width: 24, height: 24, className: "cursor-pointer object-contain" }),
                             React.createElement(link_1["default"], { href: "/thread/" + id },

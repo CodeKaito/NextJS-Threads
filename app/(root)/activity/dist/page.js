@@ -36,10 +36,31 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var Page = function () { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        return [2 /*return*/, (React.createElement("section", null,
-                React.createElement("h1", { className: "head-text mb-10" }, "Activity")))];
+var nextjs_1 = require("@clerk/nextjs");
+var navigation_1 = require("next/navigation");
+var user_actions_1 = require("@/lib/actions/user.actions");
+function Page() {
+    return __awaiter(this, void 0, void 0, function () {
+        var user, userInfo, activity;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, nextjs_1.currentUser()];
+                case 1:
+                    user = _a.sent();
+                    if (!user)
+                        return [2 /*return*/, null];
+                    return [4 /*yield*/, user_actions_1.fetchUser(user.id)];
+                case 2:
+                    userInfo = _a.sent();
+                    if (!(userInfo === null || userInfo === void 0 ? void 0 : userInfo.onboarded))
+                        navigation_1.redirect("/onboarding");
+                    return [4 /*yield*/, getActivity(userInfo._id)];
+                case 3:
+                    activity = _a.sent();
+                    return [2 /*return*/, (React.createElement(React.Fragment, null,
+                            React.createElement("h1", { className: 'head-text' }, "Activity")))];
+            }
+        });
     });
-}); };
+}
 exports["default"] = Page;

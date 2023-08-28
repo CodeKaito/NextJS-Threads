@@ -36,8 +36,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var nextjs_1 = require("@clerk/nextjs");
 var navigation_1 = require("next/navigation");
+var nextjs_1 = require("@clerk/nextjs");
+var UserCard_1 = require("@/components/cards/UserCard");
 var user_actions_1 = require("@/lib/actions/user.actions");
 function Page() {
     return __awaiter(this, void 0, void 0, function () {
@@ -64,8 +65,7 @@ function Page() {
                     result = _a.sent();
                     return [2 /*return*/, (React.createElement("section", null,
                             React.createElement("h1", { className: 'head-text mb-10' }, "Search"),
-                            React.createElement("div", { className: 'mt-14 flex flex-col gap-9' }, result.users.length === 0 ? (React.createElement("p", { className: 'no-result' }, "No Result")) : (React.createElement(React.Fragment, null, result.users.map(function (person) { return (React.createElement(UserCard, { key: person.id, id: person.id, name: person.name, username: person.username, imgUrl: person.image, personType: 'User' })); })))),
-                            React.createElement(Pagination, { path: 'search', pageNumber: (searchParams === null || searchParams === void 0 ? void 0 : searchParams.page) ? +searchParams.page : 1, isNext: result.isNext })))];
+                            React.createElement("div", { className: 'mt-14 flex flex-col gap-9' }, result.users.length === 0 ? (React.createElement("p", { className: 'no-result' }, "No Users")) : (React.createElement(React.Fragment, null, Object.values(result.users).map(function (person) { return (React.createElement(UserCard_1["default"], { key: person.id, id: person.id, name: person.name, username: person.username, imgUrl: person.image, personType: 'User' })); }))))))];
             }
         });
     });
